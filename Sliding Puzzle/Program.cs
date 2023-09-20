@@ -14,6 +14,7 @@ PuzzleBoard nullBoard = new PuzzleBoard(PuzzleBoard.NULL_BOARD, 1, 1, null);
 int[,] board = { { 0, 8, 7 }, { 6, 5, 4 }, { 3, 2, 1 } };
 PuzzleBoard initialPuzzleBoard = new PuzzleBoard(board, 0, 0, nullBoard);
 initialPuzzleBoard.DisplayBoard();
+
 //Perform depth first search algorithm to find the shortest path to the end board arrangement
 PuzzleBoard? finalBoard = null;
 List<PuzzleBoard> boardQueueThisMove = initialPuzzleBoard.GetNeighbours();
