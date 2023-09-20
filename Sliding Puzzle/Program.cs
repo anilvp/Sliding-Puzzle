@@ -1,33 +1,44 @@
-﻿//Generate new puzzle boards until we get a solvable one
-PuzzleBoard initialPuzzleBoard = new PuzzleBoard();
-while (!initialPuzzleBoard.IsSolvable())
-{
-    initialPuzzleBoard = new PuzzleBoard();
-}
+﻿//For generating a solvable puzzle board
+//{
+//PuzzleBoard initialPuzzleBoard = new PuzzleBoard();
+//while (!initialPuzzleBoard.IsSolvable())
+//{
+//    initialPuzzleBoard = new PuzzleBoard();
+//}
+//initialPuzzleBoard.DisplayBoard();
+//}
+
+//For choosing a specific puzzle board to try and solve
+//{
+PuzzleBoard nullBoard = new PuzzleBoard(PuzzleBoard.NULL_BOARD, 1, 1, null);
+int[,] board = { { 0, 8, 7 }, { 6, 5, 4 }, { 3, 2, 1 } };
+PuzzleBoard initialPuzzleBoard = new PuzzleBoard(board, 0, 0, nullBoard);
 initialPuzzleBoard.DisplayBoard();
 //Perform depth first search algorithm to find the shortest path to the end board arrangement
-List<PuzzleBoard> boardQueue;
 PuzzleBoard? finalBoard = null;
-boardQueue = initialPuzzleBoard.GetNeighbours();
+List<PuzzleBoard> boardQueueThisMove = initialPuzzleBoard.GetNeighbours();
+List<PuzzleBoard> boardQueueNextMove = new List<PuzzleBoard>();
 int n = 0;
 while (finalBoard == null)
 {
     n += 1;
-    for (int i = boardQueue.Count - 1; i >= 0; i--)
+    for (int i = 0; i < boardQueueThisMove.Count; i++)
     {
         //Checks if final board is reached
-        if (PuzzleBoard.CompareBoards(boardQueue[i].Board(), PuzzleBoard.END_BOARD))
+        if (boardQueueThisMove[i].CheckIfComplete())
         {
-            finalBoard = boardQueue[i];
+            finalBoard = boardQueueThisMove[i];
             break;
         }
         else
         {
             //Adds neighbours to the queue
-            boardQueue.AddRange(boardQueue[i].GetNeighbours());
-            boardQueue.RemoveAt(i);
+            boardQueueNextMove.AddRange(boardQueueThisMove[i].GetNeighbours());
         }
     }
+    //Resets board queues for next turn
+    boardQueueThisMove = new List<PuzzleBoard>(boardQueueNextMove);
+    boardQueueNextMove = new List<PuzzleBoard>();
 }
 //Output number of moves and sequence of moves
 Console.WriteLine("Number of moves: " + n);
