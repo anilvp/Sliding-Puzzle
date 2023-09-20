@@ -44,8 +44,7 @@ while (finalBoard == null)
 //Output number of moves and sequence of moves
 Console.WriteLine("Number of moves: " + n);
 Console.WriteLine("Sequence of moves:");
-List<PuzzleBoard> moveSequence = new List<PuzzleBoard>();
-moveSequence.Add(finalBoard);
+List<PuzzleBoard> moveSequence = new() { finalBoard };
 for (int i = 0; i < n; i++)
 {
     moveSequence.Add(moveSequence[i].PreviousPuzzleBoard());
