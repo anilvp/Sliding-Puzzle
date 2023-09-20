@@ -241,6 +241,48 @@ class PuzzleBoard
         return neighbours;
     }
 
+    //Checks if the current board is the end board arrangement
+    public bool CheckIfComplete()
+    {
+        if (board[0, 0] != 1)
+        {
+            return false;
+        }
+        if (board[0, 1] != 2)
+        {
+            return false;
+        }
+        if (board[0, 2] != 3)
+        {
+            return false;
+        }
+        if (board[1, 0] != 4)
+        {
+            return false;
+        }
+        if (board[1, 1] != 5)
+        {
+            return false;
+        }
+        if (board[1, 2] != 6)
+        {
+            return false;
+        }
+        if (board[2, 0] != 7)
+        {
+            return false;
+        }
+        if (board[2, 1] != 8)
+        {
+            return false;
+        }
+        if (board[2, 2] != 0)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public int[,] Board() { return board; }
     public PuzzleBoard PreviousPuzzleBoard() { return previousPuzzleBoard; }
 
